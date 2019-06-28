@@ -119,5 +119,8 @@ ui.setTrainButtonCallback(async () => {
   model.summary();
 
   ui.logStatus('Starting model training...');
-  await train(model, () => showPredictions(model));
+  await train(model, (step, stepInfo, logs) => {
+    console.log(`${step}: ${stepInfo} -> loss:${logs.loss}, acc:${logs.acc}`);
+    showPredictions(model)
+  });
 });
